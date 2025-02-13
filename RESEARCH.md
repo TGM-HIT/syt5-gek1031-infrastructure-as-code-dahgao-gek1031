@@ -93,3 +93,8 @@ Dadurch können sie leicht in verschiedenen Playbooks wiederverwendet werden.
 - Ziel: Automatisierte Bereitstellung und Konfiguration in DevOps-Pipelines.
 
 src: chatgpt
+
+**Ansible Concepts**: https://docs.ansible.com/ansible/latest/getting_started/basic_concepts.html
+**Roles**: https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_reuse_roles.html
+**Modules**: https://docs.ansible.com/ansible/2.9/user_guide/modules_intro.html
+
