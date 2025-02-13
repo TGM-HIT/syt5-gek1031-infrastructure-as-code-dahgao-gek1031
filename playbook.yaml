@@ -1,0 +1,50 @@
+---
+- name: Update and Setup Web Servers & Load Balancer
+  hosts: all
+  become: true
+  tasks:
+    - name: Update and upgrade all packages
+      apt:
+        update_cache: true
+        upgrade: true
+
+- name: Configure Web Servers
+  hosts: webserver
+  become: true
+  tasks:
+    - name: Install Nginx
+      package:
+        name: nginx
+        state: present
+
+    - name: Start and enable Nginx
+      service:
+        name: nginx
+        state: started
+        enabled: true
+
+    - name: Deploy a test index.html
+      copy:
+        content: "<h1>Hello from {{ inventory_hostname }}!</h1>"
+        dest: /usr/share/nginx/html/index.html
+
+- name: Configure HAProxy Load Balancer
+  hosts: loadbalancer
+  become: true
+  tasks:
+    - name: Install HAProxy
+      package:
+        name: haproxy
+        state: present
+
+    - name: Configure HAProxy
+      template:
+        src: haproxy.cfg.j2
+        dest: /etc/haproxy/haproxy.cfg
+      notify: Restart HAProxy
+
+  handlers:
+    - name: Restart HAProxy
+      service:
+        name: haproxy
+        state: restarted
