@@ -13,7 +13,7 @@ This project showcases the usage of Ansible (https://docs.ansible.com/) to :
 
 ### load balancer
 
-1. Enter the IP adresses of your VMs in `inventory.ini`
+1. Enter the IP adresses of your VMs in `load-balancing/inventory.ini`
 2. Execute the following code:
 
 ```bash
@@ -25,3 +25,14 @@ ansible-playbook -i inventory.ini playbook.yaml -u $user
 ```
 
 ### jwt 
+
+1. Enter the IP adress in `jwt/inventory.ini`
+2. Copy your .env file from the JWT exercise to `jwt/.env`
+3. Execute:
+
+```bash
+cd jwt
+
+user='your-user'
+ansible-playbook -i inventory.ini playbook.yaml -u $user
+```
