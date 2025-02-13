@@ -1,0 +1,40 @@
+---
+- name: Deploy Application from Git
+  hosts: all
+  become: true
+  tasks:
+    - name: Install required packages (Git, Docker, Docker Compose)
+      package:
+        name:
+          - git
+          - docker.io  # For Debian-based distros
+          - docker-compose
+        state: present
+
+    - name: Start and enable Docker service
+      service:
+        name: docker
+        state: started
+        enabled: yes
+
+    - name: Clone the Git repository
+      git:
+        repo: "https://github.com/TGM-HIT/syt5-gek961-cloud-datenmanagement-dahmen_gao"
+        dest: "/opt/myapp"
+        version: main
+        update: yes
+
+    - name: Run cert generation script
+      command: "bash ./genkey.sh"
+      args:
+        chdir: "/opt/myapp/nginx/certs"
+
+    - name: copy the env file
+      copy:
+        src: .env
+        dest: /opt/myapp/.env
+
+    - name: Start the application with Docker Compose
+      command: "docker-compose up -d"
+      args:
+        chdir: "/opt/myapp"
