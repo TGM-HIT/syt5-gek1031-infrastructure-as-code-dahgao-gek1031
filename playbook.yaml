@@ -26,7 +26,7 @@
     - name: Deploy a test index.html
       copy:
         content: "<h1>Hello from {{ inventory_hostname }}!</h1>"
-        dest: /usr/share/nginx/html/index.html
+        dest: /var/www/html/index.html
 
 - name: Configure HAProxy Load Balancer
   hosts: loadbalancer
