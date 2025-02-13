@@ -3,6 +3,10 @@
   hosts: webserver
   become: yes
   tasks:
+    - name: APT Update
+      apt:
+        update_cache: yes
+        upgrade: yes
     - name: Install Nginx
       package:
         name: nginx
