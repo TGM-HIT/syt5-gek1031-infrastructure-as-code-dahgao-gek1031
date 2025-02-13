@@ -1,0 +1,20 @@
+---
+- name: Setup Web Servers
+  hosts: webserver
+  become: yes
+  tasks:
+    - name: Install Nginx
+      package:
+        name: nginx
+        state: present
+    
+    - name: Start and enable Nginx
+      service:
+        name: nginx
+        state: started
+        enabled: yes
+    
+    - name: Deploy a test index.html
+      copy:
+        content: "<h1>Hello from {{ inventory_hostname }}!</h1>"
+        dest: /usr/share/nginx/html/index.html
