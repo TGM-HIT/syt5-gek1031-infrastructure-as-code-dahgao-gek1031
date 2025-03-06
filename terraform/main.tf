@@ -22,7 +22,7 @@ resource "hcloud_server" "webservers" {
   }
 
   provisioner "file" {
-    source      = "./sample-website/"  # Local directory with sample-website
+    source      = "./sample-website${count.index + 1}/"  # Local directory with sample-website
     destination = "/var/www/html/" # NGINX default directory
   }
 
