@@ -18,9 +18,14 @@ resource "hcloud_server" "webservers" {
       "sudo apt update -y && sudo apt upgrade -y",
       "sudo apt install -y nginx",
       "sudo systemctl enable --now nginx",
-      "echo '<h1>Hello from webserver-${count.index + 1}!</h1>' | sudo tee /var/www/html/index.html"
     ]
   }
+
+  provisioner "file" {
+    source      = "./sample-website/"  # Local directory with sample-website
+    destination = "/var/www/html/" # NGINX default directory
+  }
+
 }
 
 resource "hcloud_load_balancer" "lb" {
