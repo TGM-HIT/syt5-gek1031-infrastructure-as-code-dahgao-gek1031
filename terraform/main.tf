@@ -5,7 +5,13 @@ resource "hcloud_server" "webservers" {
   image       = "ubuntu-22.04" # Adjust if needed
   server_type = "cax11"
   location    = "nbg1"
-
+  ssh_keys    = ["texotek@macfedora"]
+  connection {
+    type        = "ssh"
+    user        = "root"  # Default for Hetzner Cloud images
+    private_key = file("~/.ssh/id_rsa")
+    host        = self.ipv4_address
+  }
 
   provisioner "remote-exec" {
     inline = [
