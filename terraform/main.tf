@@ -2,7 +2,7 @@
 resource "hcloud_server" "webservers" {
   count       = 2
   name        = "webserver-${count.index + 1}"
-  image       = "ubuntu-22.04" # Adjust if needed
+  image       = "ubuntu-24.04" # Adjust if needed
   server_type = "cax11"
   location    = "nbg1"
   ssh_keys    = ["texotek@macfedora"]
